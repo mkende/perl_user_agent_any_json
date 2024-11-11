@@ -32,6 +32,8 @@ on 'develop' => sub {
 # End of the template. You can add custom content below this line.
 
 requires 'JSON';
+requires 'Moo';
 requires 'UserAgent::Any';
+requires 'namespace::clean';
 
 recommends 'JSON::XS';
