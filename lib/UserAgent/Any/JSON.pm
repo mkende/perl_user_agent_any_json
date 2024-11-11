@@ -21,7 +21,7 @@ has ua => (
 # This is not specific to GET and can actually handle any verb that does not
 # take a request body.
 sub generate_get_request ($self, $url, $params, $headers) {
-  return $self->generate_get_request($url, undef, $params, $headers);
+  return $self->generate_post_request($url, undef, $params, $headers);
 }
 
 # The only difference with the 'get' version is that this handles the request
@@ -63,7 +63,7 @@ sub process_response ($self, $res, @) {
 
 wrap_method(get => \&ua => 'get', \&generate_get_request, \&process_response);
 wrap_method(post => \&ua => 'post', \&generate_post_request, \&process_response);
-wrap_method(delet => \&ua => 'delete', \&generate_get_request, \&process_response);
+wrap_method(delete => \&ua => 'delete', \&generate_get_request, \&process_response);
 
 1;
 
