@@ -13,7 +13,7 @@ WriteMakefile(
     DISTNAME         => 'UserAgent-Any-JSON',
     AUTHOR           => q{Mathias Kende <mathias@cpan.org>},
     VERSION_FROM     => 'lib/UserAgent/Any/JSON.pm',
-    ABSTRACT         => q{UserAgent::Any wrapper for JSON APIs},
+    ABSTRACT         => q{Specialization of UserAgent::Any for JSON APIs.},
     LICENSE          => 'mit',
     MIN_PERL_VERSION => '5.036',
     MAN3PODS         => {},
