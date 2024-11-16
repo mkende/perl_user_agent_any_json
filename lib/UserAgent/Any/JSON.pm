@@ -18,7 +18,7 @@ extends 'UserAgent::Any';
 # take a request body.
 sub _generate_get_request ($self, $url, @headers) {
   croak 'Invalid number of arguments, expected an even sized list after the url' if @headers % 2;
-  return $self->_generate_post_request($url, @headers);
+  return _generate_post_request($self, $url, @headers);
 }
 
 # The only difference with the 'get' version is that this handles the request

@@ -37,3 +37,7 @@ requires 'UserAgent::Any';
 requires 'namespace::clean';
 
 recommends 'JSON::XS';
+
+on 'test' => sub {
+  requires 'HTTP::Response';
+};
