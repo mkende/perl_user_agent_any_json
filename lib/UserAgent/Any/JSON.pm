@@ -12,22 +12,18 @@ use namespace::clean;
 
 our $VERSION = 0.01;
 
-has ua => (
-  is => 'ro',
-  coerce => sub { UserAgent::Any->new($_[0]) },
-  required => 1,
-);
+extends 'UserAgent::Any';
 
 # This is not specific to GET and can actually handle any verb that does not
 # take a request body.
-sub generate_get_request ($self, $url, @headers) {
+sub _generate_get_request ($self, $url, @headers) {
   croak 'Invalid number of arguments, expected an even sized list after the url' if @headers % 2;
-  return $self->generate_post_request($url, @headers);
+  return $self->_generate_post_request($url, @headers);
 }
 
 # The only difference with the 'get' version is that this handles the request
 # body.
-sub generate_post_request ($self, $url, @args) {
+sub _generate_post_request ($self, $url, @args) {
   my $body;
   $body = pop @args if @args % 2;
   return (
@@ -38,19 +34,19 @@ sub generate_post_request ($self, $url, @args) {
     defined $body ? (to_json($body)) : ());
 }
 
-sub process_response ($self, $res, @) {
+sub _process_response ($self, $res, @) {
   return UserAgent::Any::JSON::Response->new($res);
 }
 
 # GET style methods
-wrap_method(get => \&ua => 'get', \&generate_get_request, \&process_response);
-wrap_method(delete => \&ua => 'delete', \&generate_get_request, \&process_response);
-wrap_method(head => \&ua => 'head', \&generate_get_request, \&process_response);
+wrap_method(get => 'UserAgent::Any::get', \&_generate_get_request, \&_process_response);
+wrap_method(delete => 'UserAgent::Any::delete', \&_generate_get_request, \&_process_response);
+wrap_method(head => 'UserAgent::Any::head', \&_generate_get_request, \&_process_response);
 
 # POST style methods
-wrap_method(post => \&ua => 'post', \&generate_post_request, \&process_response);
-wrap_method(patch => \&ua => 'patch', \&generate_post_request, \&process_response);
-wrap_method(put => \&ua => 'put', \&generate_post_request, \&process_response);
+wrap_method(post => 'UserAgent::Any::post', \&_generate_post_request, \&_process_response);
+wrap_method(patch => 'UserAgent::Any::patch', \&_generate_post_request, \&_process_response);
+wrap_method(put => 'UserAgent::Any::put', \&_generate_post_request, \&_process_response);
 
 1;
 
@@ -126,15 +122,6 @@ L<methods in UserAgent::Any|UserAgent::Any/post> they take a last parameter for
 the request body. Here, this parameter should be a reference to a Perl
 data-structure that will be JSON encoded with the
 L<C<JSON::to_json>|JSON/to_json> function.
-
-=head2 Other methods
-
-=head3 ua
-
-  my $ua = $json_client->ua();
-
-Returns the underlying L<UserAgent::Any> object used by this object, in case
-you need to perform generic, non JSON, requests.
 
 =head1 AUTHOR
 
