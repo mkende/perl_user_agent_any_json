@@ -3,7 +3,6 @@ package UserAgent::Any::JSON::Response;
 use 5.036;
 
 use Carp;
-use JSON;
 use Moo;
 use Scalar::Util 'blessed';
 
@@ -17,7 +16,7 @@ has _converter => (
   init_arg => 'converter',
   is => 'ro',
   lazy => 1,
-  default => sub { JSON->new },
+  default => sub { require JSON; JSON->new },
 );
 
 has json => (

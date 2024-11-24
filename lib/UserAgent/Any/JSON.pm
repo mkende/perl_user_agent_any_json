@@ -3,7 +3,6 @@ package UserAgent::Any::JSON;
 use 5.036;
 
 use Carp;
-use JSON;
 use Moo;
 use UserAgent::Any::JSON::Response;
 use UserAgent::Any::Wrapper 'wrap_get_like_methods', 'wrap_post_like_methods';
@@ -17,7 +16,7 @@ extends 'UserAgent::Any';
 has _converter => (
   init_arg => 'json',
   is => 'ro',
-  default => sub { JSON->new },
+  default => sub { require JSON; JSON->new },
 );
 
 # This is not specific to GET and can actually handle any verb that does not

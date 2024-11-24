@@ -1,5 +1,10 @@
 Revision history for Perl distribution UserAgent-Any-JSON
 
+0.04 - ??
+
+ - Don’t load JSON when a custom JSON object is passed. This allows to downgrade
+   the dependency on JSON to `recommends` instead of `require`.
+
 0.03 - 2024-11-24
 
  - Allow to pass a specific JSON converter in the constructor.
