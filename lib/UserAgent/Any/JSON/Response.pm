@@ -13,12 +13,19 @@ our $VERSION = 0.01;
 
 extends 'UserAgent::Any::Response';
 
+has _converter => (
+  init_arg => 'converter',
+  is => 'ro',
+  lazy => 1,
+  default => sub { JSON->new },
+);
+
 has json => (
   is => 'ro',
   lazy => 1,
   # TODO: here we should maybe check the Content-Type header of the response
   # (for application/json) before proceeding.
-  default => sub ($self) { return from_json($self->content) },
+  default => sub ($self) { return $self->_converter->decode($self->content) },
 );
 
 1;

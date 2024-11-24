@@ -2,6 +2,7 @@ Revision history for Perl distribution UserAgent-Any-JSON
 
 0.03 - ??
 
+ - Allow to pass a specific JSON converter in the constructor.
  - Rename the JSON accessor to json (instead of data) for forward compatibility
    with other decoders (e.g. xml).
 
