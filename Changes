@@ -1,5 +1,10 @@
 Revision history for Perl distribution UserAgent-Any-JSON
 
+0.03 - ??
+
+ - Rename the JSON accessor to json (instead of data) for forward compatibility
+   with other decoders (e.g. xml).
+
 0.02 - 2024-11-18
 
  - Update to using the UserAgent::Any::Wrapper module.

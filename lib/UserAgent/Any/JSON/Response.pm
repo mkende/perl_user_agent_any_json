@@ -13,7 +13,7 @@ our $VERSION = 0.01;
 
 extends 'UserAgent::Any::Response';
 
-has data => (
+has json => (
   is => 'ro',
   lazy => 1,
   # TODO: here we should maybe check the Content-Type header of the response
@@ -36,7 +36,7 @@ UserAgent::Any::JSON::Response – Response object for L<UserAgent::Any::JSON>
 =head1 SYNOPSIS
 
   my $response = $json_client->get($url);
-  print Dumper($response->data) if $response->success;
+  print Dumper($response->json) if $response->success;
 
 =head1 DESCRIPTION
 
@@ -59,9 +59,9 @@ encoded data.
 A C<UserAgent::Any::JSON::Response> object exposes all the methods of a
 L<UserAgent::Any::Response> object and add the following:
 
-=head3 data
+=head3 json
 
-  my $obj = $res->data;
+  my $obj = $res->json;
 
 Returns a Perl datastructure corresponding to the decoded JSON content of the
 request.
